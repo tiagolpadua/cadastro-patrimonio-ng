@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="cadpat">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Patrimônio</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- angular.js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/bem/bem.controllers.js"></script>
+    <link href="styles/app.css" rel="stylesheet">
+
+</head>
+
+<body ng-controller="ListagemController as vm">
+    <div class="container">
+        <div class="page-header">
+            <h1>Listagem de Bens</h1>
+        </div>
+        <div class="row">
+            <!-- Barra Lateral -->
+            <div class="col-md-2">
+                Busca: <input ng-model="criterio">
+            </div>
+
+            <!-- Conteúdo -->
+            <div class="col-md-10">
+                <div ng-repeat="bem in vm.bens | filter:criterio" class="row">
+                    <div class="col-md-3">
+                        <a class="thumbnail">
+                            <img ng-src="{{bem.urlFoto}}">
+                            <div class="caption">
+                                <h3 ng-bind="bem.descricao"></h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "name": "cadastro-patrimonio-ng",
+  "description": "Aplicação Exemplo de Cadastro de Patrimônio em AngularJS",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.14.0",
+    "nedb": "^1.8.0"
+  }
+}
