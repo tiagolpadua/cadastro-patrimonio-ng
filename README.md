@@ -19,6 +19,13 @@ Aplicação Exemplo de Cadastro de Patrimônio em AngularJS
 > npm --version
 < 2.15.5
 
+
+> sudo add-apt-repository ppa:git-core/ppa
+> sudo apt-get update
+> sudo apt-get install git
+> git --version
+< git version 2.9.0
+
 Bacen
 http://bit.ly/imgbacen
 
