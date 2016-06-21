@@ -1,0 +1,23 @@
+<div class="page-header">
+    <h1>Listagem de Bens</h1>
+</div>
+<div class="row">
+    <!-- Barra Lateral -->
+    <div class="col-md-2">
+        Busca: <input ng-model="criterio">
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="col-md-10">
+        <div ng-repeat="bem in vm.bens | filter:criterio" class="row">
+            <div class="col-md-3">
+                <a class="thumbnail">
+                    <img ng-src="{{bem.urlFoto}}">
+                    <div class="caption">
+                        <h3 ng-bind="bem.descricao"></h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
