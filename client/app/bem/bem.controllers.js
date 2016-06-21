@@ -5,8 +5,8 @@ angular
 .module('bemControllers', [])
 .controller('ListagemController', ListagemController);
 
-ListagemController.$inject = [];
-function ListagemController() {
+ListagemController.$inject = ['$http', '$window'];
+function ListagemController($http, $window) {
     var vm = this;
 
     activate();
@@ -14,20 +14,13 @@ function ListagemController() {
     ////////////////
 
     function activate() {
-        vm.bens = [
-            {
-                descricao: 'Prédio do Banco Central do Brasil - BACEN',
-                urlFoto: 'http://bit.ly/imgbacen'
-            },
-            {
-                descricao: 'Palácio dos Buritis, sede do GDF',
-                urlFoto: 'http://bit.ly/imgburiti'
-            },
-            {
-                descricao: 'Câmara dos deputados do DF',
-                urlFoto: 'http://bit.ly/imgcamara'
-            }
-        ];
+        $http.get('/api/v1/bens')
+        .success(function(response) {
+            vm.bens = response;
+        })
+        .error(function(erro) {
+            $window.alert(erro);
+        });
     }
 }
 })();

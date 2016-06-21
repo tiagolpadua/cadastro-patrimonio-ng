@@ -3,17 +3,17 @@ var api = require('../api'),
 
 module.exports = function (app) {
 
-    app.route('/v1/bens')
+    app.route('/api/v1/bens')
         .post(api.adiciona)
         .get(api.lista);
 
-    app.route('/v1/bens/:bemId')
+    app.route('/api/v1/bens/:bemId')
         .delete(api.remove)
         .get(api.busca)
         .put(api.atualiza);
 
-    app.get('/v1/tipos', api.listaTipos);
-    app.get('/v1/bens/tipo/:tipoId', api.listaPorTipo);
+    app.get('/api/v1/tipos', api.listaTipos);
+    app.get('/api/v1/bens/tipo/:tipoId', api.listaPorTipo);
 
     // habilitando HTML5MODE
     app.all('/*', function (req, res) {
