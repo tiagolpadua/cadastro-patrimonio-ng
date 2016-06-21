@@ -1,5 +1,4 @@
-var cadpat;
-(function (cadpat) {
+namespace cadpat {
     'use strict';
     angular.module('cadpat', ['bemControllers']);
-})(cadpat || (cadpat = {}));
+}
