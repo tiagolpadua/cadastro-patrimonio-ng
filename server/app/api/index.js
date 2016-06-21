@@ -3,7 +3,6 @@ var db = require('../../config/database');
 var api = {};
 
 api.adiciona = function (req, res) {
-
     db.insert(req.body, function (err, newDoc) {
         if (err) {
             return console.log(err);
@@ -15,7 +14,7 @@ api.adiciona = function (req, res) {
 
 api.busca = function (req, res) {
     db.findOne({
-        _id: req.params.fotoId
+        _id: req.params.bemId
     }, function (err, doc) {
         if (err) {
             return console.log(err);
@@ -25,9 +24,8 @@ api.busca = function (req, res) {
 };
 
 api.atualiza = function (req, res) {
-
     db.update({
-        _id: req.params.fotoId
+        _id: req.params.bemId
     }, req.body, function (err, numReplaced) {
         if (err) {
             return console.log(err);
@@ -66,9 +64,8 @@ api.listaPorTipo = function (req, res) {
 };
 
 api.remove = function (req, res) {
-
     db.remove({
-        _id: req.params.fotoId
+        _id: req.params.bemId
     }, {}, function (err, numRemoved) {
         if (err) {
             return console.log(err);
@@ -82,18 +79,16 @@ api.remove = function (req, res) {
 };
 
 api.listaTipos = function (req, res) {
-
     res.json([{
         _id: 1,
         nome: 'imóvel'
     }, {
-            _id: 2,
-            nome: 'veículo',
-        }, {
-            _id: 3,
-            nome: 'mobília'
-        }]);
-
+        _id: 2,
+        nome: 'veículo',
+    }, {
+        _id: 3,
+        nome: 'mobília'
+    }]);
 };
 
 module.exports = api;
