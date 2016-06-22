@@ -1,4 +1,7 @@
 namespace cadpat {
     'use strict';
-    angular.module('cadpat', ['bemControllers']);
+    angular.module('cadpat', [
+        'ngRoute',
+        'bemControllers'
+    ]);
 }

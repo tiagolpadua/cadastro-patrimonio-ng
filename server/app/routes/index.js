@@ -15,7 +15,7 @@ module.exports = function (app) {
     app.get('/api/v1/tipos', api.listaTipos);
     app.get('/api/v1/bens/tipo/:tipoId', api.listaPorTipo);
 
-    // habilitando HTML5MODE
+    // habilita o HTML5MODE
     app.all('/*', function (req, res) {
         res.sendFile(path.resolve('client/index.html'));
     });
