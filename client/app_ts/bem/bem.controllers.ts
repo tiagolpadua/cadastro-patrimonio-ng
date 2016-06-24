@@ -88,9 +88,11 @@ namespace cadpat.bem {
     class ListagemController {
         static $inject = ['$http', '$window'];
         bens: IBem[];
+        nomePessoa: string;
 
         constructor(private $http: ng.IHttpService,
             private $window: ng.IWindowService) {
+            this.nomePessoa = 'Chico Buarque';
             this.listar();
         }
 

@@ -1,9 +1,6 @@
-<!--<div class="page-header">
-    <h1>Listagem de Bens</h1>
-</div>-->
-<se-header>
-    <h1>Listagem de Bens</h1>
-</se-header>
+<ac-cabecalho texto="Listagem de Bens">
+    <h3>Lista dos bens cadastrados de: {{vm.nomePessoa}}</h3>
+</ac-cabecalho>
 <div class="row">
     <!-- Barra Lateral -->
     <div class="col-md-2">
@@ -22,10 +19,15 @@
                             <h3>{{bem.descricao}}</h3>
                         </div>
                     </a>
+
                     <a ng-href="{{'/bens/alterar/' + bem._id}}" 
                         class="btn btn-primary" role="button">Alterar</a>
-                    <button ng-click="vm.excluir(bem._id)" 
-                        class="btn btn-default" role="button">Excluir</a>
+
+                    <ac-bt-atencao acao="vm.excluir(bem._id)" texto="Excluir">
+                    </ac-bt-atencao>
+
+                    <!--<button ng-click="vm.excluir(bem._id)" 
+                        class="btn btn-default" role="button">Excluir</button>-->
                 </div>
             </div>
         </div>

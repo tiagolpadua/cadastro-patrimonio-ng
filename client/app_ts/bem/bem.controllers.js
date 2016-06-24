@@ -73,6 +73,7 @@ var cadpat;
             function ListagemController($http, $window) {
                 this.$http = $http;
                 this.$window = $window;
+                this.nomePessoa = 'Chico Buarque';
                 this.listar();
             }
             ////////////////

@@ -1,6 +1,6 @@
-<div ng-show="vm.bem._id" class="page-header">
-    <h1>Alterando o Bem: {{vm.bem._id}}</h1>
-</div>
+<ac-cabecalho ng-show="vm.bem._id" texto="Alterando o Bem: {{vm.bem._id}}"></ac-cabecalho>
+<ac-cabecalho ng-show="!vm.bem._id" texto="Cadastro de Novo Bem"></ac-cabecalho>
+
 <form novalidate name="frmbem" ng-submit="vm.salvar()">
     <div class="form-group">
         <label for="urlFoto">URL Foto</label>
