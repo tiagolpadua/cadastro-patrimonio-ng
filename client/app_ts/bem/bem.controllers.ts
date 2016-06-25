@@ -1,7 +1,7 @@
 namespace cadpat.bem {
     'use strict';
 
-    interface IBem {
+    export interface IBem {
         _id: string;
         urlFoto: string;
         descricao: string;

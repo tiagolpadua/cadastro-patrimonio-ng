@@ -8,9 +8,7 @@ var cadpat;
         $locationProvider.html5Mode(true);
         $routeProvider
             .when('/bens', {
-            templateUrl: 'app_ts/bem/bem-lista.html',
-            controller: 'ListagemController',
-            controllerAs: 'vm'
+            template: '<home-bens></home-bens>'
         })
             .when('/bens/incluir', {
             templateUrl: 'app_ts/bem/bem-mantem.html',

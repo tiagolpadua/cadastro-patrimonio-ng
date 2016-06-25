@@ -1,0 +1,13 @@
+<ac-cabecalho texto="Listagem de Bens">
+    <h3>Lista dos bens cadastrados de: {{vm.nomePessoa}}</h3>
+</ac-cabecalho>
+<div class="row">
+    <!-- Barra Lateral -->
+    <barra-lateral criterio="vm.criterio"></barra-lateral>
+
+    <!-- Conteúdo -->
+    <lista-bens bens="vm.bens"
+        criterio="vm.criterio"
+        on-excluir="vm.excluir(bemId)">
+    </lista-bens>
+</div>
