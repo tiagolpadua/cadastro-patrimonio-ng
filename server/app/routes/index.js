@@ -17,6 +17,7 @@ module.exports = function (app) {
 
     // habilita o HTML5MODE
     app.all('/*', function (req, res) {
-        res.sendFile(path.resolve('client_gabarito/index.html'));
+        res.sendFile(path.resolve('client_exercicios/index.html'));
+        // res.sendFile(path.resolve('client_gabarito/index.html'));
     });
 };

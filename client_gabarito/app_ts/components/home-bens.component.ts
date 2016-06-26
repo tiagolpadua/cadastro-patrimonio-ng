@@ -10,7 +10,7 @@ namespace cadpat {
             private $window: ng.IWindowService,
             private alertaService: cadpat.alerta.AlertaService) {
 
-            this.nomePessoa = 'Chico Buarque';
+            this.nomePessoa = 'Barão de Mauá';
             this.listar();
         }
 

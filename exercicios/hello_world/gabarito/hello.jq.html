@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1 id="output"></h1>
+    <input id="input" type="text">
+    <script>
+        var input = $('#input');
+        var output = $('#output');
+        
+        input.keyup(updateOutput);
+        
+        updateOutput();
+
+        function updateOutput() {
+            console.log('Atualizando!');
+            output.text('Hello ' + input.val());
+        }
+                             
+    </script>
+</body>
+
+</html>

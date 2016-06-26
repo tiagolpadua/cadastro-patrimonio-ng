@@ -6,7 +6,7 @@ var cadpat;
             this.$http = $http;
             this.$window = $window;
             this.alertaService = alertaService;
-            this.nomePessoa = 'Chico Buarque';
+            this.nomePessoa = 'Barão de Mauá';
             this.listar();
         }
         ////////////////
