@@ -2,3 +2,10 @@
 {"urlFoto":"http://2.bp.blogspot.com/-Q7WZDQx4j7o/VeUO3tVlWHI/AAAAAAAAAUI/XYd9dStlZEc/s1600/predio-inteiro-2.jpg","descricao":"Novo Prédio","_id":"L4bpljyZeGqHqZtz"}
 {"descricao":"Prédio do Banco Central do Brasil - BACEN","urlFoto":"http://bit.ly/imgbacen","_id":"L7hAdXsYEhq5ASoz"}
 {"descricao":"Câmara dos deputados do DF","urlFoto":"http://bit.ly/imgcamara","_id":"WOmNeohIAt7VptHp"}
+{"urlFoto":"http://lorempixel.com/image_output/city-q-c-640-480-10.jpg","descricao":"Centro Cultural","tipo":"imovel","_id":"xpu5O5YW5EiPC7I9"}
+{"$$deleted":true,"_id":"xpu5O5YW5EiPC7I9"}
+{"descricao":"Palácio dos Buritis, sede do GDFX","urlFoto":"http://bit.ly/imgburiti","_id":"I6bjUTXbYhv7V08d","tipo":"imovel"}
+{"descricao":"Palácio dos Buritis, sede do GDF","urlFoto":"http://bit.ly/imgburiti","_id":"I6bjUTXbYhv7V08d","tipo":"imovel"}
+{"descricao":"Câmara dos deputados do DF","urlFoto":"http://bit.ly/imgcamara","_id":"WOmNeohIAt7VptHp","tipo":"imovel"}
+{"descricao":"Prédio do Banco Central do Brasil - BACEN","urlFoto":"http://bit.ly/imgbacen","_id":"L7hAdXsYEhq5ASoz","tipo":"imovel"}
+{"urlFoto":"http://2.bp.blogspot.com/-Q7WZDQx4j7o/VeUO3tVlWHI/AAAAAAAAAUI/XYd9dStlZEc/s1600/predio-inteiro-2.jpg","descricao":"Novo Prédio","_id":"L4bpljyZeGqHqZtz","tipo":"movel"}

@@ -3,18 +3,10 @@ console.log('Array original');
 console.log(a);
 
 console.log('Multiplicados por 2');
-a.forEach(function (n) {
-   console.log(n*2);
-});
+// TODO
 
 console.log('Quadrados');
-var quad = a.map(function (n) {
-   return n*n;
-});
-console.log(quad);
+// TODO
 
 console.log('Ímpares');
-var impar = a.filter(function (n) {
-   return n % 2 === 1;
-});
-console.log(impar);
+// TODO
