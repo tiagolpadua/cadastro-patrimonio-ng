@@ -4,6 +4,7 @@
         "watch": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "client/bower_components"
     ]
 }

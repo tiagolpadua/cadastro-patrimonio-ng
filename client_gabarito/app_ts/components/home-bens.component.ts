@@ -2,12 +2,14 @@ namespace cadpat {
     'use strict';
 
     class HomeBensController {
-        static $inject = ['$http', '$window'];
+        static $inject = ['$http', '$window', 'alertaService'];
         bens: cadpat.bem.IBem[];
         nomePessoa: string;
 
         constructor(private $http: ng.IHttpService,
-            private $window: ng.IWindowService) {
+            private $window: ng.IWindowService,
+            private alertaService: cadpat.alerta.AlertaService) {
+
             this.nomePessoa = 'Chico Buarque';
             this.listar();
         }
@@ -20,7 +22,7 @@ namespace cadpat {
                     this.bens = response;
                 })
                 .error((message) => {
-                    this.$window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
 
@@ -30,11 +32,11 @@ namespace cadpat {
             }
             this.$http.delete('/api/v1/bens/' + id)
                 .success((response) => {
-                    this.$window.alert('Bem excluído com sucesso!');
+                    this.alertaService.alertas.push({tipo: 'success', msg: 'Bem excluído com sucesso' });
                     this.listar();
                 })
                 .error((message) => {
-                    this.$window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }

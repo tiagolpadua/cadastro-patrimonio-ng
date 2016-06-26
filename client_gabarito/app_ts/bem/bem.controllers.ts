@@ -12,19 +12,19 @@ namespace cadpat.bem {
     }
 
     class AlterarController {
-        static $inject = ['$http', '$location', '$routeParams', '$window'];
+        static $inject = ['$http', '$location', '$routeParams', 'alertaService'];
         bem: IBem;
 
         constructor(private $http: ng.IHttpService,
             private $location: ng.ILocationService,
             private $routeParams: IRouteParamsServiceBem,
-            private $window: ng.IWindowService) {
+            private alertaService: cadpat.alerta.AlertaService) {
             $http.get('/api/v1/bens/' + $routeParams.id)
                 .success((response: IBem) => {
                     this.bem = response;
                 })
                 .error((message) => {
-                    this.$window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
 
@@ -33,22 +33,22 @@ namespace cadpat.bem {
         salvar() {
             this.$http.put('/api/v1/bens/' + this.bem._id, this.bem)
                 .success((response) => {
-                    this.$window.alert('Bem alterado com sucesso');
+                    this.alertaService.alertas.push({tipo: 'success', msg: 'Bem alterado com sucesso' });
                     this.$location.path('/bens');
                 })
                 .error((message) => {
-                    this.$window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }
 
     class IncluirController {
-        static $inject = ['$http', '$location', '$window'];
+        static $inject = ['$http', '$location', 'alertaService'];
         bem: IBem;
 
         constructor(private $http: ng.IHttpService,
             private $location: ng.ILocationService,
-            private $window: ng.IWindowService) {
+            private alertaService: cadpat.alerta.AlertaService) {
         }
 
         ////////////////
@@ -56,31 +56,31 @@ namespace cadpat.bem {
         salvar() {
             this.$http.post('/api/v1/bens', this.bem)
                 .success((response) => {
-                    this.$window.alert('Bem incluído com sucesso');
+                    this.alertaService.alertas.push({tipo: 'success', msg: 'Bem incluído com sucesso' });
                     this.$location.path('/bens');
                 })
                 .error((message) => {
-                    this.$window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }
 
     class DetalheController {
-        static $inject = ['$http', '$routeParams', '$window'];
+        static $inject = ['$http', '$routeParams', 'alertaService'];
         bem: IBem;
 
         ////////////////
 
         constructor($http: ng.IHttpService,
             $routeParams: IRouteParamsServiceBem,
-            $window: ng.IWindowService) {
+            private alertaService: cadpat.alerta.AlertaService) {
 
             $http.get('/api/v1/bens/' + $routeParams.id)
                 .success((response: IBem) => {
                     this.bem = response;
                 })
                 .error((message) => {
-                    $window.alert(message);
+                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }

@@ -3,6 +3,8 @@ namespace cadpat {
     angular.module('cadpat', [
         'ngRoute',
         'ui.bootstrap',
-        'bemControllers'
+        'bemControllers',
+        'alertaControllers',
+        'alertaServices'
     ]);
 }

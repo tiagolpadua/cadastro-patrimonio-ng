@@ -1,0 +1,54 @@
+<div class="col-md-10">
+    <div class="row">
+        <div class="col-md-6">
+            <uib-carousel active="0">
+                <uib-slide ng-repeat="bem in vm.bens" index="$index">
+                    <img ng-src="{{bem.urlFoto}}"  
+                        style="height:300px; margin:0 auto;">
+                    <div class="carousel-caption">
+                        <p>{{bem.descricao}}</p>
+                    </div>
+                </uib-slide>
+            </uib-carousel>
+        </div>
+    </div>
+    <div class="row">
+        <uib-accordion>
+            <uib-accordion-group heading="Bem ID: {{bem._id}}"
+                ng-repeat="bem in vm.bens | filter:vm.criterio">
+                <div class="col-md-12">
+                    <a href="/bens/{{bem._id}}">
+                        <img ng-src="{{bem.urlFoto}}">
+                        <div class="caption">
+                            <h3>{{bem.descricao}}</h3>
+                            <h4>Tipo: {{bem.tipo}}</h4>
+                        </div>
+                    </a>
+
+                    <button type="button" class="btn btn-default" 
+                        ng-click="exibirDetalhes = !exibirDetalhes">
+                            {{exibirDetalhes? 'Menos' : 'Mais'}} Detalhes
+                    </button>
+                    <hr>
+                    <div uib-collapse="!exibirDetalhes">
+                        <div class="well well-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Donec auctor sed metus in dignissim. In hac habitasse platea dictumst. Etiam
+                            commodo lacus ligula, ut posuere mauris egestas non. Donec elementum tristique
+                            lacinia. Ut semper, tortor et tristique vulputate, elit enim tristique velit,
+                            quis dapibus augue odio ut elit. Vivamus semper sed tortor tempor viverra.
+                            Maecenas tempor congue lectus pharetra convallis. Nullam vitae dictum justo,
+                            eget accumsan erat. Praesent lacinia at elit quis hendrerit. In eu viverra sapien.</div>
+                    </div>
+
+                    <ac-bt-navegar destino="{{'/bens/alterar/' + bem._id}}"
+                        texto="Alterar">
+                    </ac-bt-navegar>
+
+                    <ac-bt-atencao acao="vm.onExcluir({ bemId: bem._id })"
+                        texto="Excluir">
+                    </ac-bt-atencao>
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
+    </div>
+</div>

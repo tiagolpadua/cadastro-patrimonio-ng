@@ -2,9 +2,10 @@ var cadpat;
 (function (cadpat) {
     'use strict';
     var HomeBensController = (function () {
-        function HomeBensController($http, $window) {
+        function HomeBensController($http, $window, alertaService) {
             this.$http = $http;
             this.$window = $window;
+            this.alertaService = alertaService;
             this.nomePessoa = 'Chico Buarque';
             this.listar();
         }
@@ -16,7 +17,7 @@ var cadpat;
                 _this.bens = response;
             })
                 .error(function (message) {
-                _this.$window.alert(message);
+                _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
             });
         };
         HomeBensController.prototype.excluir = function (id) {
@@ -26,14 +27,14 @@ var cadpat;
             }
             this.$http.delete('/api/v1/bens/' + id)
                 .success(function (response) {
-                _this.$window.alert('Bem excluído com sucesso!');
+                _this.alertaService.alertas.push({ tipo: 'success', msg: 'Bem excluído com sucesso' });
                 _this.listar();
             })
                 .error(function (message) {
-                _this.$window.alert(message);
+                _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
             });
         };
-        HomeBensController.$inject = ['$http', '$window'];
+        HomeBensController.$inject = ['$http', '$window', 'alertaService'];
         return HomeBensController;
     }());
     angular.module('cadpat')

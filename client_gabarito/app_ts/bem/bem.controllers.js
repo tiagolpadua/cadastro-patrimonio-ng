@@ -4,18 +4,18 @@ var cadpat;
     (function (bem) {
         'use strict';
         var AlterarController = (function () {
-            function AlterarController($http, $location, $routeParams, $window) {
+            function AlterarController($http, $location, $routeParams, alertaService) {
                 var _this = this;
                 this.$http = $http;
                 this.$location = $location;
                 this.$routeParams = $routeParams;
-                this.$window = $window;
+                this.alertaService = alertaService;
                 $http.get('/api/v1/bens/' + $routeParams.id)
                     .success(function (response) {
                     _this.bem = response;
                 })
                     .error(function (message) {
-                    _this.$window.alert(message);
+                    _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
                 });
             }
             ////////////////
@@ -23,50 +23,51 @@ var cadpat;
                 var _this = this;
                 this.$http.put('/api/v1/bens/' + this.bem._id, this.bem)
                     .success(function (response) {
-                    _this.$window.alert('Bem alterado com sucesso');
+                    _this.alertaService.alertas.push({ tipo: 'success', msg: 'Bem alterado com sucesso' });
                     _this.$location.path('/bens');
                 })
                     .error(function (message) {
-                    _this.$window.alert(message);
+                    _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
                 });
             };
-            AlterarController.$inject = ['$http', '$location', '$routeParams', '$window'];
+            AlterarController.$inject = ['$http', '$location', '$routeParams', 'alertaService'];
             return AlterarController;
         }());
         var IncluirController = (function () {
-            function IncluirController($http, $location, $window) {
+            function IncluirController($http, $location, alertaService) {
                 this.$http = $http;
                 this.$location = $location;
-                this.$window = $window;
+                this.alertaService = alertaService;
             }
             ////////////////
             IncluirController.prototype.salvar = function () {
                 var _this = this;
                 this.$http.post('/api/v1/bens', this.bem)
                     .success(function (response) {
-                    _this.$window.alert('Bem incluído com sucesso');
+                    _this.alertaService.alertas.push({ tipo: 'success', msg: 'Bem incluído com sucesso' });
                     _this.$location.path('/bens');
                 })
                     .error(function (message) {
-                    _this.$window.alert(message);
+                    _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
                 });
             };
-            IncluirController.$inject = ['$http', '$location', '$window'];
+            IncluirController.$inject = ['$http', '$location', 'alertaService'];
             return IncluirController;
         }());
         var DetalheController = (function () {
             ////////////////
-            function DetalheController($http, $routeParams, $window) {
+            function DetalheController($http, $routeParams, alertaService) {
                 var _this = this;
+                this.alertaService = alertaService;
                 $http.get('/api/v1/bens/' + $routeParams.id)
                     .success(function (response) {
                     _this.bem = response;
                 })
                     .error(function (message) {
-                    $window.alert(message);
+                    _this.alertaService.alertas.push({ tipo: 'danger', msg: message });
                 });
             }
-            DetalheController.$inject = ['$http', '$routeParams', '$window'];
+            DetalheController.$inject = ['$http', '$routeParams', 'alertaService'];
             return DetalheController;
         }());
         var ListagemController = (function () {
