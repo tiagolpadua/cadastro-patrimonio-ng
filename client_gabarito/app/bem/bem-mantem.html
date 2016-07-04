@@ -1,29 +1,29 @@
 <div ng-show="vm.bem._id" class="page-header">
     <h1>Alterando o Bem: {{vm.bem._id}}</h1>
 </div>
-<form novalidate name="frmbem" ng-submit="vm.salvar()">
+<form novalidate name="vm.frmbem" ng-submit="vm.salvar()">
     <div class="form-group">
         <label for="urlFoto">URL Foto</label>
-        <input type="text" name="urlFoto" ng-model="vm.bem.urlFoto" required 
+        <input type="text" name="urlFoto" ng-model="vm.bem.urlFoto" required
             class="form-control" id="urlFoto" placeholder="URL Foto">
-        <span ng-show="frmbem.urlFoto.$dirty && frmbem.urlFoto.$error.required" 
+        <span ng-show="vm.frmbem.urlFoto.$dirty && vm.frmbem.urlFoto.$error.required"
             class="form-control alert-danger">
             URL da foto não informada
         </span>
     </div>
     <div class="form-group">
         <label for="descricao">Descrição</label>
-        <input type="text" name="descricao" ng-model="vm.bem.descricao" required minlength="10" 
+        <input type="text" name="descricao" ng-model="vm.bem.descricao" required minlength="10"
             class="form-control" id="descricao" placeholder="Descrição">
-        <span ng-show="frmbem.descricao.$dirty && frmbem.descricao.$error.required" 
+        <span ng-show="vm.frmbem.descricao.$dirty && vm.frmbem.descricao.$error.required"
             class="form-control alert-danger">
             Descrição não informada
         </span>
-        <span ng-show="frmbem.descricao.$dirty && frmbem.descricao.$error.minlength" 
+        <span ng-show="vm.frmbem.descricao.$dirty && vm.frmbem.descricao.$error.minlength"
             class="form-control alert-danger">
             Descrição deve ter no mínimo de 10 caracteres
         </span
     </div>
-    <button type="submit" class="btn btn-primary" ng-disabled="frmbem.$invalid">Salvar</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="vm.frmbem.$invalid">Salvar</button>
     <a href="/bens" class="btn btn-default">Cancelar</a>
 </form>

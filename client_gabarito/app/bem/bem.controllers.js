@@ -48,14 +48,16 @@
         ////////////////
 
         function salvar() {
-            $http.post('/api/v1/bens', vm.bem)
-                .success(function (response) {
-                    $window.alert('Bem incluído com sucesso');
-                    $location.path('/bens');
-                })
-                .error(function (message) {
-                    $window.alert(message);
-                });
+            if (vm.frmbem.$valid) {
+                $http.post('/api/v1/bens', vm.bem)
+                    .success(function (response) {
+                        $window.alert('Bem incluído com sucesso');
+                        $location.path('/bens');
+                    })
+                    .error(function (message) {
+                        $window.alert(message);
+                    });
+            }
         }
     }
 
@@ -109,7 +111,7 @@
                 })
                 .error(function (message) {
                     $window.alert(message);
-                }); 
+                });
         }
     }
 

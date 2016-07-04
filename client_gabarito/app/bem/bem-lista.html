@@ -16,12 +16,12 @@
                     <a href="/bens/{{bem._id}}">
                         <img ng-src="{{bem.urlFoto}}">
                         <div class="caption">
-                            <h3>{{bem.descricao}}</h3>
+                            <h3>{{bem.descricao | maiusculo}}</h3>
                         </div>
                     </a>
-                    <a ng-href="{{'/bens/alterar/' + bem._id}}" 
+                    <a ng-href="{{'/bens/alterar/' + bem._id}}"
                         class="btn btn-primary" role="button">Alterar</a>
-                    <button ng-click="vm.excluir(bem._id)" 
+                    <button ng-click="vm.excluir(bem._id)"
                         class="btn btn-default" role="button">Excluir</a>
                 </div>
             </div>

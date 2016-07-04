@@ -2,7 +2,7 @@
 'use strict';
 
 angular
-    .module('cadpatFilters')
+    .module('cadpatFilters', [])
     .filter('maiusculo', maiusculo);
 
 maiusculo.$inject = [];
