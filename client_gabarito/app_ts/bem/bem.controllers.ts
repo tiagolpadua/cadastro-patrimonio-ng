@@ -11,19 +11,21 @@ namespace cadpat.bem {
         id: string;
     }
 
-    class AlterarController {
-        static $inject = ['$http', '$location', '$routeParams', 'alertaService'];
+    export class AlterarController {
+        static $inject: Array<string> =
+            ['$http', '$location', '$routeParams', 'alertaService'];
         bem: IBem;
 
         constructor(private $http: ng.IHttpService,
-            private $location: ng.ILocationService,
-            private $routeParams: IRouteParamsServiceBem,
-            private alertaService: cadpat.alerta.AlertaService) {
+                    private $location: ng.ILocationService,
+                    private $routeParams: IRouteParamsServiceBem,
+                    private alertaService: cadpat.alerta.AlertaService) {
+
             $http.get('/api/v1/bens/' + $routeParams.id)
-                .success((response: IBem) => {
-                    this.bem = response;
+                .success((bem: IBem) => {
+                    this.bem = bem;
                 })
-                .error((message) => {
+                .error((message: string) => {
                     this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
@@ -32,66 +34,72 @@ namespace cadpat.bem {
 
         salvar() {
             this.$http.put('/api/v1/bens/' + this.bem._id, this.bem)
-                .success((response) => {
+                .success(() => {
                     this.alertaService.alertas.push({tipo: 'success', msg: 'Bem alterado com sucesso' });
                     this.$location.path('/bens');
                 })
-                .error((message) => {
+                .error((message: string) => {
                     this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }
 
-    class IncluirController {
-        static $inject = ['$http', '$location', 'alertaService'];
+    export class IncluirController {
+        static $inject: Array<string> = ['$http', '$location', 'alertaService'];
         bem: IBem;
 
         constructor(private $http: ng.IHttpService,
-            private $location: ng.ILocationService,
-            private alertaService: cadpat.alerta.AlertaService) {
+                    private $location: ng.ILocationService,
+                    private alertaService: cadpat.alerta.AlertaService) {
         }
 
         ////////////////
 
         salvar() {
             this.$http.post('/api/v1/bens', this.bem)
-                .success((response) => {
-                    this.alertaService.alertas.push({tipo: 'success', msg: 'Bem incluído com sucesso' });
+                .success(() => {
+                    this.alertaService.alertas.push(
+                        {
+                            tipo: 'success', msg: 'Bem incluído com sucesso'
+                        }
+                    );
                     this.$location.path('/bens');
                 })
-                .error((message) => {
+                .error((message: string) => {
                     this.alertaService.alertas.push({tipo: 'danger', msg: message });
                 });
         }
     }
 
-    class DetalheController {
-        static $inject = ['$http', '$routeParams', 'alertaService'];
+    export class DetalheController {
+        static $inject: Array<string> = ['$http', '$routeParams', 'alertaService'];
         bem: IBem;
 
         ////////////////
 
-        constructor($http: ng.IHttpService,
-            $routeParams: IRouteParamsServiceBem,
-            private alertaService: cadpat.alerta.AlertaService) {
+        constructor(private $http: ng.IHttpService,
+                    private $routeParams: IRouteParamsServiceBem,
+                    private alertaService: cadpat.alerta.AlertaService) {
 
             $http.get('/api/v1/bens/' + $routeParams.id)
                 .success((response: IBem) => {
                     this.bem = response;
                 })
                 .error((message) => {
-                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
+                    this.alertaService.alertas.push({
+                        tipo: 'danger', msg: message
+                    });
                 });
         }
     }
 
-    class ListagemController {
-        static $inject = ['$http', '$window'];
+    export class ListagemController {
+        static $inject: Array<string> = ['$http', '$window'];
         bens: IBem[];
         nomePessoa: string;
 
         constructor(private $http: ng.IHttpService,
-            private $window: ng.IWindowService) {
+                    private $window: ng.IWindowService) {
             this.nomePessoa = 'Chico Buarque';
             this.listar();
         }
@@ -100,24 +108,24 @@ namespace cadpat.bem {
 
         listar() {
             this.$http.get('/api/v1/bens')
-                .success((response: IBem[]) => {
-                    this.bens = response;
+                .success((bens: IBem[]) => {
+                    this.bens = bens;
                 })
-                .error((message) => {
+                .error((message: string) => {
                     this.$window.alert(message);
                 });
         }
 
         excluir(id: string) {
-            if (!this.$window.confirm('Confirma a exclusão do bem id: ' + id + '?')) {
+            if (!this.$window.confirm(`Confirma a exclusão do bem id: ${id}?`)) {
                 return;
             }
             this.$http.delete('/api/v1/bens/' + id)
-                .success((response) => {
+                .success(() => {
                     this.$window.alert('Bem excluído com sucesso!');
                     this.listar();
                 })
-                .error((message) => {
+                .error((message: string) => {
                     this.$window.alert(message);
                 });
         }
