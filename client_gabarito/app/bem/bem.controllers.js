@@ -1,4 +1,4 @@
-(function (angular, undefined) {
+(function(angular, undefined) {
     'use strict';
 
     angular
@@ -8,8 +8,9 @@
         .controller('IncluirController', IncluirController)
         .controller('AlterarController', AlterarController);
 
-    AlterarController.$inject = ['$http', '$location', '$routeParams', '$window'];
-    function AlterarController($http, $location, $routeParams, $window) {
+    AlterarController.$inject = ['$location', '$routeParams', '$window', 'bemService'];
+
+    function AlterarController($location, $routeParams, $window, bemService) {
         var vm = this;
         vm.salvar = salvar;
 
@@ -18,29 +19,33 @@
         ////////////////
 
         function activate() {
-            $http.get('/api/v1/bens/' + $routeParams.id)
-                .success(function (response) {
-                    vm.bem = response;
-                })
-                .error(function (message) {
-                    $window.alert(message);
-                });
+            bemService.get({
+                id: $routeParams.id,
+            }, function(bem) {
+                vm.bem = bem;
+            }, function(erro) {
+                $window.alert(erro);
+            });
         }
 
         function salvar() {
-            $http.put('/api/v1/bens/' + vm.bem._id, vm.bem)
-                .success(function (response) {
+            bemService.update({
+                    id: $routeParams.id,
+                },
+                vm.bem,
+                function() {
                     $window.alert('Bem alterado com sucesso');
                     $location.path('/bens');
-                })
-                .error(function (message) {
-                    $window.alert(message);
+                },
+                function(erro) {
+                    $window.alert(erro);
                 });
         }
     }
 
-    IncluirController.$inject = ['$http', '$location', '$window'];
-    function IncluirController($http, $location, $window) {
+    IncluirController.$inject = ['$location', '$window', 'bemService'];
+
+    function IncluirController($location, $window, bemService) {
         var vm = this;
         vm.bem = {};
         vm.salvar = salvar;
@@ -49,20 +54,22 @@
 
         function salvar() {
             if (vm.frmbem.$valid) {
-                $http.post('/api/v1/bens', vm.bem)
-                    .success(function (response) {
+                bemService.save(
+                    vm.bem,
+                    function() {
                         $window.alert('Bem incluído com sucesso');
                         $location.path('/bens');
-                    })
-                    .error(function (message) {
-                        $window.alert(message);
+                    },
+                    function(erro) {
+                        $window.alert(erro);
                     });
             }
         }
     }
 
-    DetalheController.$inject = ['$http', '$routeParams', '$window'];
-    function DetalheController($http, $routeParams, $window) {
+    DetalheController.$inject = ['$routeParams', '$window', 'bemService'];
+
+    function DetalheController($routeParams, $window, bemService) {
         var vm = this;
 
         activate();
@@ -70,18 +77,19 @@
         ////////////////
 
         function activate() {
-            $http.get('/api/v1/bens/' + $routeParams.id)
-                .success(function (response) {
-                    vm.bem = response;
-                })
-                .error(function (message) {
-                    $window.alert(message);
-                });
+            bemService.get({
+                id: $routeParams.id,
+            }, function(bem) {
+                vm.bem = bem;
+            }, function(erro) {
+                $window.alert(erro);
+            });
         }
     }
 
-    ListagemController.$inject = ['$http', '$window'];
-    function ListagemController($http, $window) {
+    ListagemController.$inject = ['$window', 'bemService'];
+
+    function ListagemController($window, bemService) {
         var vm = this;
 
         vm.excluir = excluir;
@@ -91,27 +99,27 @@
         ////////////////
 
         function activate() {
-            $http.get('/api/v1/bens')
-                .success(function (response) {
-                    vm.bens = response;
-                })
-                .error(function (message) {
-                    $window.alert(message);
+            bemService.query(function(bens) {
+                    vm.bens = bens;
+                },
+                function(erro) {
+                    $window.alert(erro);
                 });
         }
 
         function excluir(id) {
-            if(!$window.confirm('Confirma a exclusão do bem id: ' + id + '?')) {
+            if (!$window.confirm('Confirma a exclusão do bem id: ' + id + '?')) {
                 return;
             }
-            $http.delete('/api/v1/bens/' + id)
-                .success(function (response) {
-                    $window.alert('Bem excluído com sucesso!');
-                    activate();
-                })
-                .error(function (message) {
-                    $window.alert(message);
-                });
+
+            bemService.delete({
+                id: id,
+            }, function() {
+                $window.alert('Bem excluído com sucesso!');
+                activate();
+            }, function(erro) {
+                $window.alert(erro);
+            });
         }
     }
 
