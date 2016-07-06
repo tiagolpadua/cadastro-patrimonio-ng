@@ -13,92 +13,92 @@ namespace cadpat.bem {
 
     export class AlterarController {
         static $inject: Array<string> =
-            ['$http', '$location', '$routeParams', 'alertaService'];
+            ['BemResource', '$location', '$routeParams', '$window'];
         bem: IBem;
 
-        constructor(private $http: ng.IHttpService,
+        constructor(private BemResource: cadpat.IBemResourceClass,
                     private $location: ng.ILocationService,
                     private $routeParams: IRouteParamsServiceBem,
-                    private alertaService: cadpat.alerta.AlertaService) {
+                    private $window: ng.IWindowService) {
 
-            $http.get('/api/v1/bens/' + $routeParams.id)
-                .success((bem: IBem) => {
-                    this.bem = bem;
-                })
-                .error((message: string) => {
-                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
-                });
+            this.BemResource.get({
+                id: this.$routeParams.id,
+            }, (bem: IBem) => {
+                this.bem = bem;
+            }, (error: string) => {
+                this.$window.alert(error);
+            });
         }
 
         ////////////////
 
         salvar() {
-            this.$http.put('/api/v1/bens/' + this.bem._id, this.bem)
-                .success(() => {
-                    this.alertaService.alertas.push({tipo: 'success', msg: 'Bem alterado com sucesso' });
-                    this.$location.path('/bens');
-                })
-                .error((message: string) => {
-                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
-                });
+            this.BemResource.update({
+                    id: this.$routeParams.id,
+                }, this.bem, () => {
+                this.$window.alert('Bem alterado com sucesso');
+                this.$location.path('/bens');
+            }, (error) => {
+                this.$window.alert(error);
+            });
         }
     }
 
     export class IncluirController {
-        static $inject: Array<string> = ['$http', '$location', 'alertaService'];
+        static $inject: Array<string> = ['BemResource', '$location', '$window'];
         bem: IBem;
 
-        constructor(private $http: ng.IHttpService,
+        constructor(private BemResource: cadpat.IBemResourceClass,
                     private $location: ng.ILocationService,
-                    private alertaService: cadpat.alerta.AlertaService) {
+                    private $window: ng.IWindowService) {
         }
 
         ////////////////
 
         salvar() {
-            this.$http.post('/api/v1/bens', this.bem)
-                .success(() => {
-                    this.alertaService.alertas.push(
-                        {
-                            tipo: 'success', msg: 'Bem incluído com sucesso'
-                        }
-                    );
+            this.BemResource.save(
+                this.bem,
+                () => {
+                    this.$window.alert('Bem incluído com sucesso');
                     this.$location.path('/bens');
-                })
-                .error((message: string) => {
-                    this.alertaService.alertas.push({tipo: 'danger', msg: message });
-                });
+                },
+                (error) => {
+                    this.$window.alert(error);
+                }
+            );
         }
     }
 
     export class DetalheController {
-        static $inject: Array<string> = ['$http', '$routeParams', 'alertaService'];
+        static $inject: Array<string> = ['BemResource', '$routeParams', '$window'];
         bem: IBem;
 
         ////////////////
 
-        constructor(private $http: ng.IHttpService,
+        constructor(private BemResource: cadpat.IBemResourceClass,
                     private $routeParams: IRouteParamsServiceBem,
-                    private alertaService: cadpat.alerta.AlertaService) {
+                    private $window: ng.IWindowService) {
 
-            $http.get('/api/v1/bens/' + $routeParams.id)
-                .success((response: IBem) => {
-                    this.bem = response;
-                })
-                .error((message) => {
-                    this.alertaService.alertas.push({
-                        tipo: 'danger', msg: message
-                    });
-                });
+            BemResource.get(
+                {
+                    id: $routeParams.id,
+                },
+                (bem: IBem) => {
+                    this.bem = bem;
+                },
+                (error) => {
+                    this.$window.alert(error);
+                }
+            );
         }
     }
 
     export class ListagemController {
-        static $inject: Array<string> = ['$http', '$window'];
+        static $inject: Array<string> = ['BemResource', '$window'];
         bens: IBem[];
         nomePessoa: string;
 
-        constructor(private $http: ng.IHttpService,
+        constructor(private BemResource: cadpat.IBemResourceClass,
                     private $window: ng.IWindowService) {
             this.nomePessoa = 'Chico Buarque';
             this.listar();
@@ -107,27 +107,31 @@ namespace cadpat.bem {
         ////////////////
 
         listar() {
-            this.$http.get('/api/v1/bens')
-                .success((bens: IBem[]) => {
+            this.BemResource.query(
+                (bens: IBem[]) => {
                     this.bens = bens;
-                })
-                .error((message: string) => {
-                    this.$window.alert(message);
-                });
+                },
+                (error) => {
+                    this.$window.alert(error);
+                }
+            );
         }
 
         excluir(id: string) {
             if (!this.$window.confirm(`Confirma a exclusão do bem id: ${id}?`)) {
                 return;
             }
-            this.$http.delete('/api/v1/bens/' + id)
-                .success(() => {
+            this.BemResource.delete({
+                    id: id
+                },
+                () => {
                     this.$window.alert('Bem excluído com sucesso!');
                     this.listar();
-                })
-                .error((message: string) => {
-                    this.$window.alert(message);
-                });
+                },
+                (error) => {
+                    this.$window.alert(error);
+                }
+            );
         }
     }
 

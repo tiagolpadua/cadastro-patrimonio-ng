@@ -15,5 +15,4 @@ namespace cadpat.alerta {
     angular
         .module('alertaServices', [])
         .service('alertaService', AlertaService);
-
 }
