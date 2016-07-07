@@ -17,7 +17,7 @@ namespace cadpat.alerta {
     }
 
     angular
-        .module('alertaControllers', [])
+        .module('alertaControllers', ['alertaServices'])
         .controller('AlertaController', AlertaController);
 }
 

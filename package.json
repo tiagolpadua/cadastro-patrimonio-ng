@@ -4,7 +4,14 @@
   "description": "Aplicação Exemplo de Cadastro de Patrimônio em AngularJS",
   "license": "MIT",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "karma start test/karma.conf.js"
+  },
+  "devDependencies" : {
+    "jasmine-core": "^2.3.4",
+    "karma": "~0.12",
+    "karma-jasmine": "^0.3.5",
+    "karma-chrome-launcher": "^0.1.12"
   },
   "dependencies": {
     "body-parser": "^1.15.1",

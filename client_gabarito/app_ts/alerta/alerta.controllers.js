@@ -16,7 +16,7 @@ var cadpat;
             return AlertaController;
         }());
         angular
-            .module('alertaControllers', [])
+            .module('alertaControllers', ['alertaServices'])
             .controller('AlertaController', AlertaController);
     })(alerta = cadpat.alerta || (cadpat.alerta = {}));
 })(cadpat || (cadpat = {}));

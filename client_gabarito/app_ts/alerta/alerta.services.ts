@@ -1,7 +1,7 @@
 namespace cadpat.alerta {
     'use strict';
 
-    export type TipoAlerta = 'danger' | 'success';
+    type TipoAlerta = 'danger' | 'success';
 
     export interface IAlerta {
         tipo: TipoAlerta;
@@ -10,6 +10,13 @@ namespace cadpat.alerta {
 
     export class AlertaService {
         alertas: IAlerta[] = [];
+
+        add(tipo: TipoAlerta, msg: string) {
+            this.alertas.push({
+                tipo: tipo,
+                msg: msg
+            });
+        }
     }
 
     angular

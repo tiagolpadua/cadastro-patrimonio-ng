@@ -36,10 +36,8 @@
     <script src="app_ts/components/lista-bens.component.js"></script>
     <script src="app_ts/components/home-bens.component.js"></script>
 
-    <!--
     <script src="app_ts/alerta/alerta.controllers.js"></script>
     <script src="app_ts/alerta/alerta.services.js"></script>
-    -->
 
     <link href="styles/app.css" rel="stylesheet">
 
@@ -47,7 +45,6 @@
 
 <body>
     <div class="container">
-        <!--
         <div ng-controller="AlertaController as vm">
             <uib-alert  ng-repeat="alerta in vm.alertas"
                         type="{{alerta.tipo}}"
@@ -55,7 +52,6 @@
                 {{alerta.msg}}
             </uib-alert>
         </div>
-        -->
         <div ng-view></div>
     </div>
 </body>

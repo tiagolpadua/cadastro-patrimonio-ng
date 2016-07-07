@@ -7,99 +7,14 @@ namespace cadpat.bem {
         descricao: string;
     }
 
-    interface IRouteParamsServiceBem extends ng.route.IRouteParamsService {
-        id: string;
-    }
-
-    export class AlterarController {
-        static $inject: Array<string> =
-            ['BemResource', '$location', '$routeParams', '$window'];
-        bem: IBem;
-
-        constructor(private BemResource: cadpat.IBemResourceClass,
-                    private $location: ng.ILocationService,
-                    private $routeParams: IRouteParamsServiceBem,
-                    private $window: ng.IWindowService) {
-
-            this.BemResource.get({
-                id: this.$routeParams.id,
-            }, (bem: IBem) => {
-                this.bem = bem;
-            }, (error: string) => {
-                this.$window.alert(error);
-            });
-        }
-
-        ////////////////
-
-        salvar() {
-            this.BemResource.update({
-                    id: this.$routeParams.id,
-                }, this.bem, () => {
-                this.$window.alert('Bem alterado com sucesso');
-                this.$location.path('/bens');
-            }, (error) => {
-                this.$window.alert(error);
-            });
-        }
-    }
-
-    export class IncluirController {
-        static $inject: Array<string> = ['BemResource', '$location', '$window'];
-        bem: IBem;
-
-        constructor(private BemResource: cadpat.IBemResourceClass,
-                    private $location: ng.ILocationService,
-                    private $window: ng.IWindowService) {
-        }
-
-        ////////////////
-
-        salvar() {
-            this.BemResource.save(
-                this.bem,
-                () => {
-                    this.$window.alert('Bem incluído com sucesso');
-                    this.$location.path('/bens');
-                },
-                (error) => {
-                    this.$window.alert(error);
-                }
-            );
-        }
-    }
-
-    export class DetalheController {
-        static $inject: Array<string> = ['BemResource', '$routeParams', '$window'];
-        bem: IBem;
-
-        ////////////////
-
-        constructor(private BemResource: cadpat.IBemResourceClass,
-                    private $routeParams: IRouteParamsServiceBem,
-                    private $window: ng.IWindowService) {
-
-            BemResource.get(
-                {
-                    id: $routeParams.id,
-                },
-                (bem: IBem) => {
-                    this.bem = bem;
-                },
-                (error) => {
-                    this.$window.alert(error);
-                }
-            );
-        }
-    }
-
     export class ListagemController {
-        static $inject: Array<string> = ['BemResource', '$window'];
+        static $inject: Array<string> = ['BemResource', '$window', 'alertaService'];
         bens: IBem[];
         nomePessoa: string;
 
         constructor(private BemResource: cadpat.IBemResourceClass,
-                    private $window: ng.IWindowService) {
+                    private $window: ng.IWindowService,
+                    private alertaService: cadpat.alerta.AlertaService) {
             this.nomePessoa = 'Chico Buarque';
             this.listar();
         }
@@ -111,8 +26,8 @@ namespace cadpat.bem {
                 (bens: IBem[]) => {
                     this.bens = bens;
                 },
-                (error) => {
-                    this.$window.alert(error);
+                (error: string) => {
+                    this.alertaService.add('danger', error);
                 }
             );
         }
@@ -121,15 +36,111 @@ namespace cadpat.bem {
             if (!this.$window.confirm(`Confirma a exclusão do bem id: ${id}?`)) {
                 return;
             }
-            this.BemResource.delete({
+            this.BemResource.delete(
+                {
                     id: id
                 },
                 () => {
-                    this.$window.alert('Bem excluído com sucesso!');
+                    this.alertaService.add('success', 'Bem excluído com sucesso');
                     this.listar();
                 },
-                (error) => {
-                    this.$window.alert(error);
+                (error: string) => {
+                    this.alertaService.add('danger', error);
+                }
+            );
+        }
+    }
+
+    interface IRouteParamsServiceBem extends ng.route.IRouteParamsService {
+        id: string;
+    }
+
+    export class DetalheController {
+        static $inject: Array<string> = ['BemResource', '$routeParams', 'alertaService'];
+        bem: IBem;
+
+        ////////////////
+
+        constructor(private BemResource: cadpat.IBemResourceClass,
+                    private $routeParams: IRouteParamsServiceBem,
+                    private alertaService: cadpat.alerta.AlertaService) {
+
+            BemResource.get(
+                {
+                    id: $routeParams.id,
+                },
+                (bem: IBem) => {
+                    this.bem = bem;
+                },
+                (error: string) => {
+                    this.alertaService.add('danger', error);
+                }
+            );
+        }
+    }
+
+    export class IncluirController {
+        static $inject: Array<string> = ['BemResource', '$location', 'alertaService'];
+        bem: IBem;
+
+        constructor(private BemResource: cadpat.IBemResourceClass,
+                    private $location: ng.ILocationService,
+                    private alertaService: cadpat.alerta.AlertaService) {
+        }
+
+        ////////////////
+
+        salvar() {
+            this.BemResource.save(
+                this.bem,
+                () => {
+                    this.alertaService.add('success', 'Bem incluído com sucesso');
+                    this.$location.path('/bens');
+                },
+                (error: string) => {
+                    this.alertaService.add('danger', error);
+                }
+            );
+        }
+    }
+
+    export class AlterarController {
+        static $inject: Array<string> =
+            ['BemResource', '$location', '$routeParams', 'alertaService'];
+        bem: IBem;
+
+        constructor(private BemResource: cadpat.IBemResourceClass,
+                    private $location: ng.ILocationService,
+                    private $routeParams: IRouteParamsServiceBem,
+                    private alertaService: cadpat.alerta.AlertaService) {
+
+            this.BemResource.get(
+                {
+                    id: this.$routeParams.id,
+                },
+                (bem: IBem) => {
+                    this.bem = bem;
+                },
+                (error: string) => {
+                    this.alertaService.add('danger', error);
+                }
+            );
+        }
+
+        ////////////////
+
+        salvar() {
+            this.BemResource.update(
+                {
+                    id: this.$routeParams.id,
+                },
+                this.bem,
+                () => {
+                    this.alertaService.add('success', 'Bem alterado com sucesso');
+                    this.$location.path('/bens');
+                },
+                (error: string) => {
+                    this.alertaService.add('danger', error);
                 }
             );
         }

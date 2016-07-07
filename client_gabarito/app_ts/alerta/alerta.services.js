@@ -7,6 +7,12 @@ var cadpat;
             function AlertaService() {
                 this.alertas = [];
             }
+            AlertaService.prototype.add = function (tipo, msg) {
+                this.alertas.push({
+                    tipo: tipo,
+                    msg: msg
+                });
+            };
             return AlertaService;
         }());
         alerta.AlertaService = AlertaService;
