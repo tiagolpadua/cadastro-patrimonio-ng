@@ -9,6 +9,7 @@
     <base href="/">
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/modalBox/modalBox-min.js"></script>
 
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +33,7 @@
     <script src="app_ts/directives/ac-cabecalho.directive.js"></script>
     <script src="app_ts/directives/ac-bt-atencao.directive.js"></script>
     <script src="app_ts/directives/ac-bt-navegar.directive.js"></script>
+    <script src="app_ts/directives/ac-modal-box.directive.js"></script>
     <script src="app_ts/components/barra-lateral.component.js"></script>
     <script src="app_ts/components/lista-bens.component.js"></script>
     <script src="app_ts/components/home-bens.component.js"></script>
@@ -52,6 +54,18 @@
                 {{alerta.msg}}
             </uib-alert>
         </div>
+
+        <hr>
+
+        <ac-modal-box visible="modalVisible">
+            <h1>Conteúdo da modal</h1>
+        </ac-modal-box>
+
+        <button ng-click="modalVisible = !modalVisible">toggle</button>
+        <span>visível: {{modalVisible}}</span>
+
+        <hr>
+
         <div ng-view></div>
     </div>
 </body>

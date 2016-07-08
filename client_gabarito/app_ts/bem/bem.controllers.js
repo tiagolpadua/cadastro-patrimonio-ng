@@ -4,11 +4,15 @@ var cadpat;
     (function (bem_1) {
         'use strict';
         var ListagemController = (function () {
-            function ListagemController(BemResource, $window, alertaService) {
+            function ListagemController($scope, BemResource, $window, alertaService) {
+                this.$scope = $scope;
                 this.BemResource = BemResource;
                 this.$window = $window;
                 this.alertaService = alertaService;
                 this.nomePessoa = 'Chico Buarque';
+                $scope.$on('showModal', function (event, time) {
+                    console.log('Evento recebido: ' + time);
+                });
                 this.listar();
             }
             ////////////////
@@ -34,7 +38,10 @@ var cadpat;
                     _this.alertaService.add('danger', error);
                 });
             };
-            ListagemController.$inject = ['BemResource', '$window', 'alertaService'];
+            ListagemController.$inject = ['$scope',
+                'BemResource',
+                '$window',
+                'alertaService'];
             return ListagemController;
         }());
         bem_1.ListagemController = ListagemController;

@@ -4,7 +4,7 @@ var cadpat;
     maiusculo.$inject = [];
     function maiusculo() {
         return function (input) {
-            return input.toUpperCase();
+            return (input || '').toUpperCase();
         };
     }
     angular

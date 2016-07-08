@@ -4,7 +4,7 @@ namespace cadpat {
     maiusculo.$inject = [];
     function maiusculo() {
         return (input: string) => {
-            return input.toUpperCase();
+            return (input || '').toUpperCase();
         };
     }
 

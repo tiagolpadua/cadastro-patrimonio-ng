@@ -1,3 +1,32 @@
 .top-buffer {
-    margin-top:20px; 
+    margin-top: 20px;
+}
+
+.modalBox {
+    padding: 5px;
+    border: 1px solid #CCC;
+    background: #FFF;
+    height: 500px;
+    width: 700px;
+    display: none;
+}
+
+img.iw-closeImg {
+    width: 24px;
+    height: 24px;
+}
+
+.modalFooter {
+    color: #FFF;
+    position: absolute;
+    bottom: 0px;
+}
+
+.modalFooter span {
+    cursor: pointer;
+}
+
+.iw-modalOverlay {
+    background: #000;
+    opacity: .5;
 }

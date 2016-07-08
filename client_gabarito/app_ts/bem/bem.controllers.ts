@@ -8,14 +8,23 @@ namespace cadpat.bem {
     }
 
     export class ListagemController {
-        static $inject: Array<string> = ['BemResource', '$window', 'alertaService'];
+        static $inject: Array<string> = ['$scope',
+                                         'BemResource',
+                                         '$window',
+                                         'alertaService'];
         bens: IBem[];
         nomePessoa: string;
 
-        constructor(private BemResource: cadpat.IBemResourceClass,
+        constructor(private $scope: ng.IScope,
+                    private BemResource: cadpat.IBemResourceClass,
                     private $window: ng.IWindowService,
                     private alertaService: cadpat.alerta.AlertaService) {
             this.nomePessoa = 'Chico Buarque';
+
+            $scope.$on('showModal', (event: ng.IAngularEvent, time: Date) => {
+                console.log('Evento recebido: ' + time);
+            });
+
             this.listar();
         }
 
